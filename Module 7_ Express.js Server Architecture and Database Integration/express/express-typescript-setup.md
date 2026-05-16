@@ -190,18 +190,6 @@ npm i -D package-name
 
 ```bash
 npm run dev
+
+
 ```
-
----
-
-# Important Concepts
-
-| Concept       | Meaning                  |
-| ------------- | ------------------------ |
-| Node.js       | JavaScript runtime       |
-| Express       | Backend framework        |
-| TypeScript    | Typed JavaScript         |
-| tsconfig.json | TypeScript configuration |
-| tsx           | Runs TypeScript directly |
-| package.json  | Project configuration    |
-| npm           | Package manager          |
