@@ -15,6 +15,12 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
+// Endpoint to receive JSON data
+app.post("/", (req: Request, res: Response) => {
+  console.log(req.body);
+  res.status(200).json(req.body);
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
