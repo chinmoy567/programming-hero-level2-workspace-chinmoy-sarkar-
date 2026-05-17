@@ -1,3 +1,4 @@
+import config from "../config/index";
 import express, {
   type Application,
   type Request,
@@ -6,15 +7,14 @@ import express, {
 import { Pool } from "pg";
 
 const app = express();
-const port = 3000;
+const port = config.port;
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
 // Create a connection pool to the PostgreSQL database
 const pool = new Pool({
-  connectionString:
-    "postgresql://neondb_owner:npg_fmU9eqQJrCA7@ep-falling-hall-apbwucr4-pooler.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
+  connectionString: config.connection_string,
 });
 
 // Function to initialize the database and create the users table if it doesn't exist
