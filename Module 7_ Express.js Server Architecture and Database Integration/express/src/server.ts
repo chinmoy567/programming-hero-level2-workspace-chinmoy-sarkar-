@@ -72,6 +72,7 @@ app.post("/api/user", async (req: Request, res: Response) => {
 //   });
 // });
 
+// Route to handle GET requests and retrieve all users from the database
 app.get("/api/users", async (req: Request, res: Response) => {
   try {
     const result = await pool.query(`SELECT * FROM users`);
@@ -89,7 +90,6 @@ app.get("/api/users", async (req: Request, res: Response) => {
     });
   }
 });
-
 
 // Route to handle GET requests and retrieve a user by ID
 app.get("/api/user/:id", async (req: Request, res: Response) => {
@@ -120,6 +120,69 @@ app.get("/api/user/:id", async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: error.message || "An error occurred while retrieving the user",
+      error: error,
+    });
+  }
+});
+
+// Route to handle PUT requests and update a user by ID
+app.patch("/api/user/:id", async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const { name, email, password, age } = req.body;
+    const result = await pool.query(
+      `UPDATE users SET name = $1, email = $2, password = $3, age = $4, updated_at = CURRENT_TIMESTAMP WHERE id = $5 RETURNING *`,
+      [name, email, password, age, userId],
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    console.log(result.rows[0]);
+
+    res.status(200).json({
+      success: true,
+      message: "User updated successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    console.error("Error updating user:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message || "An error occurred while updating the user",
+      error: error,
+    });
+  }
+});
+
+// Route to handle DELETE requests and delete a user by ID
+app.delete("/api/user/:id", async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const result = await pool.query(
+      `DELETE FROM users WHERE id = $1 RETURNING *`,
+      [userId],
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    console.log(result.rows[0]);
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message || "An error occurred while deleting the user",
       error: error,
     });
   }
