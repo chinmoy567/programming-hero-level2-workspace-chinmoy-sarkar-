@@ -1,18 +1,11 @@
-import express, {
-  type Application,
-  type Request,
-  type Response,
-} from "express";
+import express, { type Request, type Response } from "express";
 import { config } from "./config";
 import { pool } from "./db";
 
 const app = express();
-const port = config.port;
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
-
-
 
 // Route to handle POST requests and insert data into the database
 app.post("/api/user", async (req: Request, res: Response) => {
@@ -39,14 +32,15 @@ app.post("/api/user", async (req: Request, res: Response) => {
   }
 });
 
-// // Middleware to parse JSON bodies
-// app.get("/api/users", (req: Request, res: Response) => {
-//   res.status(200).json({
-//     message: "Hello, World!",
-//     author: "chinmoy",
-//   });
-// });
+// Route to handle GET requests and retrieve all users from the database
+app.get("/api/users", (req: Request, res: Response) => {
+  res.status(200).json({
+    message: "Hello, World!",
+    author: "chinmoy",
+  });
+});
 
+// Route to handle GET requests and retrieve all users from the database
 app.get("/api/users", async (req: Request, res: Response) => {
   try {
     const result = await pool.query(`SELECT * FROM users`);
@@ -99,5 +93,82 @@ app.get("/api/user/:id", async (req: Request, res: Response) => {
   }
 });
 
+// Route to handle PUT requests and update a user by ID
+app.put("/api/users/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { name, password, age, is_active } = req.body;
+
+  // console.log("Id : ", id);
+  // console.log({ name, password, age, is_active });
+
+  try {
+    const result = await pool.query(
+      `
+    UPDATE users 
+    SET 
+    name=COALESCE($1,name),
+    password=COALESCE($2,password),
+    age=COALESCE($3,age),
+    is_active=COALESCE($4,is_active) 
+
+    WHERE id=$5 RETURNING *
+    `,
+      [name, password, age, is_active, id],
+    );
+
+    if (result.rows.length === 0) {
+      res.status(404).json({
+        success: false,
+        message: "User Not found!",
+      });
+    }
+
+    // console.log(result);
+    res.status(200).json({
+      success: true,
+      message: "User updated successfully!",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+});
+
+// Route to handle DELETE requests and delete a user by ID
+app.delete("/api/users/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query(
+      `
+    DELETE FROM users WHERE id=$1  
+      `,
+      [id],
+    );
+
+    console.log(result);
+    if (result.rowCount === 0) {
+      res.status(404).json({
+        success: false,
+        message: "User Not found!",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully!",
+      data: {},
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+});
 
 export default app;
