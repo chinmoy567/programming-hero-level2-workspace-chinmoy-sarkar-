@@ -1,5 +1,4 @@
 import express, { type Request, type Response } from "express";
-import { config } from "./config";
 import { pool } from "./db";
 
 const app = express();
@@ -63,7 +62,6 @@ app.get("/api/users", async (req: Request, res: Response) => {
 app.get("/api/user/:id", async (req: Request, res: Response) => {
   try {
     const userId = req.params.id;
-
     const result = await pool.query(`SELECT * FROM users WHERE id = $1`, [
       userId,
     ]);
@@ -72,7 +70,7 @@ app.get("/api/user/:id", async (req: Request, res: Response) => {
       return res.status(404).json({
         success: false,
         message: "User not found",
-      });
+      });    
     }
     // Print full user data in terminal
     console.log(result.rows[0]);

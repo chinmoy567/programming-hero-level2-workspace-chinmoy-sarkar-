@@ -91,7 +91,6 @@ app.get("/api/users", async (req: Request, res: Response) => {
   }
 });
 
-
 // Route to handle GET requests and retrieve a user by ID
 app.get("/api/user/:id", async (req: Request, res: Response) => {
   try {
