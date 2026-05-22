@@ -1,35 +1,16 @@
 import express, { type Request, type Response } from "express";
 import { pool } from "./db";
+import { userRoute } from "./modules/user/user.route";
 
 const app = express();
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
-// Route to handle POST requests and insert data into the database
-app.post("/api/user", async (req: Request, res: Response) => {
-  try {
-    const { name, email, password, age } = req.body;
-    const result = await pool.query(
-      `INSERT INTO users(name, email, password, age) VALUES($1, $2, $3, $4) RETURNING *`,
-      [name, email, password, age],
-    );
-    console.log(result.rows[0]);
 
-    res.status(201).json({
-      success: true,
-      message: "Data received successfully",
-      data: result.rows[0],
-    });
-  } catch (error: any) {
-    console.error("Error inserting data:", error);
-    res.status(500).json({
-      success: false,
-      message: error.message || "An error occurred while inserting data",
-      error: error,
-    });
-  }
-});
+app.use("/api/users", userRoute);
+
+
 
 // Route to handle GET requests and retrieve all users from the database
 app.get("/api/users", (req: Request, res: Response) => {
