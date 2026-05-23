@@ -18,3 +18,23 @@ Method -> GET
 URL -> /api/users
 Date -> 5/24/2026
 Time -> 12:01:05 AM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 12:26:53 AM
+
+Method -> GET
+URL -> /api/users/1
+Date -> 5/24/2026
+Time -> 12:40:51 AM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 12:43:18 AM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 12:44:38 AM
