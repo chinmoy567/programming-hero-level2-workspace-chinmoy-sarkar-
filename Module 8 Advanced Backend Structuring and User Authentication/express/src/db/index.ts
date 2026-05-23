@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { config } from "../config";
+import config  from "../config";
 // Create a connection pool to the PostgreSQL database
 export const pool = new Pool({
   connectionString: config.connection_string,
