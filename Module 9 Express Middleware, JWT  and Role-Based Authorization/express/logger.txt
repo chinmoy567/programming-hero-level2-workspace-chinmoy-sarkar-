@@ -1,0 +1,40 @@
+
+Method -> GET
+URL -> /
+Date -> 5/23/2026
+Time -> 11:58:43 PM
+
+Method -> GET
+URL -> /users
+Date -> 5/23/2026
+Time -> 11:59:11 PM
+
+Method -> GET
+URL -> /users
+Date -> 5/24/2026
+Time -> 12:00:57 AM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 12:01:05 AM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 12:26:53 AM
+
+Method -> GET
+URL -> /api/users/1
+Date -> 5/24/2026
+Time -> 12:40:51 AM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 12:43:18 AM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 12:44:38 AM
