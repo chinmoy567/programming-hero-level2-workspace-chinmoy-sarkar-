@@ -13,7 +13,6 @@ Date -> ${date}
 Time -> ${time}
 `;
   fs.appendFile("logger.txt", log, (err) => {
-    console.log(err);
   });
 
   next();
