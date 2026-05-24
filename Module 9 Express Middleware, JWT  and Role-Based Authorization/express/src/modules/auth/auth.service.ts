@@ -3,7 +3,6 @@ import { pool } from "../../db";
 import jwt from "jsonwebtoken";
 import config from "../../config";
 
-
 // Function to handle user login and generate JWT token
 const loginUserIntoDB = async (payload: {
   email: string;
@@ -31,6 +30,7 @@ const loginUserIntoDB = async (payload: {
     id: user.id,
     email: user.email,
     name: user.name,
+    role: user.role,
     is_active: user.is_active,
   };
   const accessToken = jwt.sign(jwtPayload, config.secret_key as string, {

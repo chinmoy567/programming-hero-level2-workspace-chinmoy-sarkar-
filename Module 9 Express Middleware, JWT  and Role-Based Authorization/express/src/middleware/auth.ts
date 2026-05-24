@@ -2,9 +2,10 @@ import type { Request, Response, NextFunction } from "express";
 import config from "../config";
 import jwt from "jsonwebtoken";
 import { pool } from "../db";
-import { error } from "console";
+import type { ROLES } from "../types";
 
-const auth = () => {
+const auth = (...roles: ROLES[]) => {
+  console.log("Roles in auth middleware:", roles); // Debugging log
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const token = req.headers.authorization;
@@ -35,10 +36,17 @@ const auth = () => {
         });
       }
 
-      if (user.is_active === false) {
+      if (!user?.is_active) {
         return res.status(403).json({
           success: false,
           message: "user is not active",
+        });
+      }
+
+      if (roles.length > 0 && !roles.includes(user.role)) {
+        return res.status(403).json({
+          success: false,
+          message: "Forbidden",
         });
       }
 
