@@ -1,5 +1,6 @@
 import { type Request, type Response } from "express";
 import { userService } from "./user.service";
+import sendResponse from "../../utility/sendResponse";
 
 // Controller function to handle creating a new user
 const createUser = async (req: Request, res: Response) => {
@@ -89,7 +90,7 @@ const updateUser = async (req: Request, res: Response) => {
         message: "User Not found!",
       });
     }
-    
+
     const updatedUser = result.rows[0];
     if (updatedUser) {
       delete updatedUser.password;
@@ -101,7 +102,8 @@ const updateUser = async (req: Request, res: Response) => {
       data: updatedUser,
     });
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
       error: error,
@@ -127,7 +129,8 @@ const deleteUser = async (req: Request, res: Response) => {
       data: {},
     });
   } catch (error: any) {
-    res.status(500).json({
+    sendResponse(res, {
+      statusCode: 500,
       success: false,
       message: error.message,
       error: error,
