@@ -33,11 +33,18 @@ const loginUserIntoDB = async (payload: {
     role: user.role,
     is_active: user.is_active,
   };
+
+  //access token with 365 days expiry
   const accessToken = jwt.sign(jwtPayload, config.secret_key as string, {
     expiresIn: "365d",
   });
 
-  return { accessToken };
+    //refresh token with 365 days expiry
+  const refreshToken = jwt.sign(jwtPayload, config.secret_key as string, {
+    expiresIn: "365d",
+  });
+
+  return { accessToken, refreshToken };
 };
 
 export const authService = {

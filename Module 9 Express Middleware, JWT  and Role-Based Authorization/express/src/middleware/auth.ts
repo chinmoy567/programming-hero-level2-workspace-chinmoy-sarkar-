@@ -35,7 +35,8 @@ const auth = (...roles: ROLES[]) => {
           message: "user not found",
         });
       }
-
+      
+      //if user is not active, return 403 Forbidden
       if (!user?.is_active) {
         return res.status(403).json({
           success: false,
@@ -43,6 +44,7 @@ const auth = (...roles: ROLES[]) => {
         });
       }
 
+      //if user role is not in the allowed roles, return 403 Forbidden
       if (roles.length > 0 && !roles.includes(user.role)) {
         return res.status(403).json({
           success: false,
@@ -50,9 +52,11 @@ const auth = (...roles: ROLES[]) => {
         });
       }
 
+      // Attach user information to the request object for use in subsequent middleware or route handlers
       req.user = decoded;
 
       next();
+      
     } catch (error) {
       next(error);
     }
