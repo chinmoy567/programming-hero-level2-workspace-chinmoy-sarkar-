@@ -9,6 +9,10 @@ const createProfileIntoDB = async (payload: any) => {
     throw new Error("User not found");
   }
   // Check if profile already exists for the user
+  const existingProfile = await pool.query(`SELECT * FROM profiles WHERE user_id = $1`, [user_id]);
+  if (existingProfile.rowCount && existingProfile.rowCount > 0) {
+    throw new Error("Profile already exists for this user");
+  }
   const result = await pool.query(
     `INSERT INTO profiles (user_id, bio, address, phone, gender) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
     [user_id, bio, address, phone, gender],

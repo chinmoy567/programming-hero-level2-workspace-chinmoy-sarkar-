@@ -8,7 +8,7 @@ const createUser = async (req: Request, res: Response) => {
     res.status(201).json({
       success: true,
       message: "Data received successfully",
-      data: result.rows[0],
+      data: result,
     });
   } catch (error: any) {
     console.error("Error inserting data:", error);
@@ -24,10 +24,15 @@ const createUser = async (req: Request, res: Response) => {
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const result = await userService.getAllUsersFromDB();
+    const users = result.rows.map((user: any) => {
+      delete user.password;
+      delete user.is_active;
+      return user;
+    });
     res.status(200).json({
       success: true,
       message: "Users retrieved successfully",
-      data: result.rows,
+      data: users,
     });
   } catch (error: any) {
     console.error("Error retrieving users:", error);
@@ -52,10 +57,15 @@ const getSingleUser = async (req: Request, res: Response) => {
     }
     // Print full user data in terminal
     console.log(result.rows[0]);
+    const user = result.rows[0];
+    if (user) {
+      delete user.password;
+      delete user.is_active;
+    }
     res.status(200).json({
       success: true,
       message: "User retrieved successfully",
-      data: result.rows[0],
+      data: user,
     });
   } catch (error: any) {
     console.error("Error retrieving user:", error);
@@ -74,16 +84,21 @@ const updateUser = async (req: Request, res: Response) => {
     const result = await userService.updateUserFromDB(req.body, id as string);
 
     if (result.rows.length === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "User Not found!",
       });
     }
-    // console.log(result);
+    
+    const updatedUser = result.rows[0];
+    if (updatedUser) {
+      delete updatedUser.password;
+    }
+
     res.status(200).json({
       success: true,
       message: "User updated successfully!",
-      data: result.rows[0],
+      data: updatedUser,
     });
   } catch (error: any) {
     res.status(500).json({
@@ -101,7 +116,7 @@ const deleteUser = async (req: Request, res: Response) => {
     const result = await userService.deleteUserFromDB(id as string);
     console.log(result);
     if (result.rowCount === 0) {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "User Not found!",
       });

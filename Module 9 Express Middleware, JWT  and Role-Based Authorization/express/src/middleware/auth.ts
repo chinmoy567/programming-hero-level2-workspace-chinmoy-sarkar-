@@ -17,8 +17,9 @@ const auth = (...roles: ROLES[]) => {
           message: "Unauthorized",
         });
       }
+
       const decoded = jwt.verify(
-        token,
+        token as string,
         config.secret_key as string,
       ) as jwt.JwtPayload;
 
