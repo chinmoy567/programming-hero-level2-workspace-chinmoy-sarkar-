@@ -27,8 +27,9 @@ const getSingleUserFromDB = async (id: string) => {
 };
 
 // Function to update a user in the database by ID
-const updateUserFromDB = async (payload: Iuser, id: string) => {
+const updateUserFromDB = async (payload: Partial<Iuser>, id: string) => {
   const { name, password, age, is_active } = payload;
+  const hashedPassword = password ? await bycrypt.hash(password, 12) : undefined;
   const result = await pool.query(
     `
     UPDATE users 
@@ -40,7 +41,7 @@ const updateUserFromDB = async (payload: Iuser, id: string) => {
 
     WHERE id=$5 RETURNING *
     `,
-    [name, password, age, is_active, id],
+    [name, hashedPassword, age, is_active, id],
   );
   return result;
 };
