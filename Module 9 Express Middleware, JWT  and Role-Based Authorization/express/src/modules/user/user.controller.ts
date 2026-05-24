@@ -22,7 +22,7 @@ const createUser = async (req: Request, res: Response) => {
 
 // Controller function to handle retrieving all users
 const getAllUsers = async (req: Request, res: Response) => {
-    try {
+  try {
     const result = await userService.getAllUsersFromDB();
     res.status(200).json({
       success: true,
