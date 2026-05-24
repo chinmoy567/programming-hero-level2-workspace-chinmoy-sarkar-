@@ -183,3 +183,88 @@ Method -> POST
 URL -> /api/users
 Date -> 5/24/2026
 Time -> 1:25:22 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 2:55:21 PM
+
+Method -> POST
+URL -> /api/auth/login
+Date -> 5/24/2026
+Time -> 2:55:36 PM
+
+Method -> POST
+URL -> /api/auth/login
+Date -> 5/24/2026
+Time -> 2:55:54 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 2:56:24 PM
+
+Method -> POST
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:04:51 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:13:32 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:21:02 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:21:13 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:22:35 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:36:43 PM
+
+Method -> POST
+URL -> /api/auth/login
+Date -> 5/24/2026
+Time -> 3:44:41 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:44:58 PM
+
+Method -> POST
+URL -> /api/auth/login
+Date -> 5/24/2026
+Time -> 3:45:23 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:45:38 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:54:02 PM
+
+Method -> POST
+URL -> /api/auth/login
+Date -> 5/24/2026
+Time -> 3:54:10 PM
+
+Method -> GET
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 3:54:20 PM

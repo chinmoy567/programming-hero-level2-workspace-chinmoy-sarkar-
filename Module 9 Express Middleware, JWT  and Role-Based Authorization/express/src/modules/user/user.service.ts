@@ -4,14 +4,14 @@ import bycrypt from "bcryptjs";
 
 // Function to create a new user in the database
 const createUserIntoDB = async (payload: Iuser) => {
-  const { name, email, password, age } = payload;
+  const { name, email, password, age, role } = payload;
 
   const hashedPassword = await bycrypt.hash(password, 12);
   console.log("Hashed Password:", hashedPassword); // Debugging log
 
   const result = await pool.query(
-    `INSERT INTO users(name, email, password, age) VALUES($1, $2, $3, $4) RETURNING *`,
-    [name, email, hashedPassword, age],
+    `INSERT INTO users(name, email, password, age, role) VALUES($1, $2, $3, $4, COALESCE($5, 'user')) RETURNING *`,
+    [name, email, hashedPassword, age, role],
   );
   console.log(result.rows[0]);
   delete result.rows[0].password;
