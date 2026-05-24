@@ -163,3 +163,23 @@ Method -> GET
 URL -> /api/users
 Date -> 5/24/2026
 Time -> 1:11:57 PM
+
+Method -> POST
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 1:25:07 PM
+
+Method -> POST
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 1:25:13 PM
+
+Method -> POST
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 1:25:19 PM
+
+Method -> POST
+URL -> /api/users
+Date -> 5/24/2026
+Time -> 1:25:22 PM
