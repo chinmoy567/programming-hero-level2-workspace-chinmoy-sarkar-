@@ -14,15 +14,12 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cros({origin:"http://localhost:3000",credentials:true}))
-
+app.use(cros({ origin: "http://localhost:3000", credentials: true }));
 
 app.use(looger);
 app.use("/api/users", userRoute);
 app.use("/api/profile", profileRoute);
 app.use("/api/auth", authRoute);
-
-
 
 app.use(globalErrorHandler);
 
