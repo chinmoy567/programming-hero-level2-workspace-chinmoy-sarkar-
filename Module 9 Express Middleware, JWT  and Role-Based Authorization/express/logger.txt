@@ -1,0 +1,30 @@
+
+Method -> GET
+URL -> /
+Date -> 5/25/2026
+Time -> 2:31:08 AM
+
+Method -> GET
+URL -> /user
+Date -> 5/25/2026
+Time -> 2:31:13 AM
+
+Method -> GET
+URL -> /users
+Date -> 5/25/2026
+Time -> 2:31:18 AM
+
+Method -> GET
+URL -> /users
+Date -> 5/25/2026
+Time -> 2:31:20 AM
+
+Method -> POST
+URL -> /api/auth/login
+Date -> 5/25/2026
+Time -> 2:31:38 AM
+
+Method -> GET
+URL -> /users
+Date -> 5/25/2026
+Time -> 2:31:53 AM
