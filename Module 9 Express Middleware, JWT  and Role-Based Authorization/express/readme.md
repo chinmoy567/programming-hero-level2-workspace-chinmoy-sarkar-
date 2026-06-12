@@ -1,176 +1,197 @@
-# TypeScript + Express Backend Setup
+# DevPulse API
 
-## Initialize Project
+A backend issue tracking system built with Node.js, Express.js, TypeScript, and PostgreSQL. The application allows contributors to create bug reports and feature requests while maintainers manage the complete issue workflow through role-based access control.
+
+## Live URL
+
+https://programming-hero-assignment-2-bug-f.vercel.app/
+
+## GitHub Repository
+
+https://github.com/chinmoy567/CHINMOY-SARKAR-PROGRAMMING-HERO-L2B7-1139/tree/main/assignment-2
+
+## Interview Video
+
+[Watch Interview Video](https://drive.google.com/drive/folders/16KNDrlGUwcNg0XbDWbL92YEyq0DGKpfU)
+
+---
+
+## Features
+
+- User Registration
+- User Login with JWT Authentication
+- Password Hashing using bcrypt
+- Role-Based Authorization
+- Create Issue
+- Get All Issues
+- Get Single Issue
+- Update Issue
+- Delete Issue
+- PostgreSQL Database Integration
+- Centralized Error Handling
+- Environment Variable Configuration
+- TypeScript Support
+- Modular Folder Structure
+
+---
+
+## Technology Stack
+
+### Backend
+
+- Node.js
+- Express.js
+- TypeScript
+
+### Database
+
+- PostgreSQL (Neon Database)
+
+### Authentication
+
+- JWT (jsonwebtoken)
+- bcrypt
+
+### Deployment
+
+- Vercel
+
+---
+
+## Architecture
+
+The project follows a modular backend architecture using Express.js, TypeScript, and PostgreSQL.
+
+### System Flow
+
+```text
+Client Request
+      ↓
+ Express Server
+      ↓
+    Routes
+      ↓
+ Middleware
+      ↓
+  Controllers
+      ↓
+  Services
+      ↓
+ PostgreSQL DB
+      ↓
+ API Response
+```
+
+### Architecture Components
+
+#### Server Layer
+
+- src/server.ts
+- src/app.ts
+
+#### Route Layer
+
+- auth.routes.ts
+- issues.routes.ts
+
+#### Middleware Layer
+
+- auth.ts
+- globalErrorHandler.ts
+- notFound.ts
+
+#### Controller Layer
+
+- auth.controller.ts
+- issues.controller.ts
+
+#### Service Layer
+
+- auth.service.ts
+- issues.service.ts
+
+#### Utility Layer
+
+- sendResponse.ts
+
+---
+
+## File Structure
+
+```text
+assignment-2/
+│
+├── src/
+│   ├── config/
+│   │   └── index.ts
+│   │
+│   ├── db/
+│   │   └── index.ts
+│   │
+│   ├── middleware/
+│   │   ├── auth.ts
+│   │   ├── globalErrorHandler.ts
+│   │   └── notFound.ts
+│   │
+│   ├── modules/
+│   │   ├── auth/
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── auth.interface.ts
+│   │   │   ├── auth.routes.ts
+│   │   │   └── auth.service.ts
+│   │   │
+│   │   └── issues/
+│   │       ├── issues.controller.ts
+│   │       ├── issues.interface.ts
+│   │       ├── issues.routes.ts
+│   │       └── issues.service.ts
+│   │
+│   ├── utils/
+│   │   └── sendResponse.ts
+│   │
+│   ├── app.ts
+│   │
+│   └── server.ts
+│
+├── .env
+├── package.json
+├── tsconfig.json
+├── tsup.config.ts
+├── vercel.json
+└── README.md
+```
+
+---
+
+## Installation
+
+Clone the repository
 
 ```bash
-npm init --y
+git clone https://github.com/chinmoy567/CHINMOY-SARKAR-PROGRAMMING-HERO-L2B7-1139.git
+cd assignment-2
 ```
 
----
-
-## Install TypeScript
+Install dependencies
 
 ```bash
-npm i -D typescript
+npm install
 ```
 
----
 
-## Initialize TypeScript Config
-
-```bash
-npx tsc --init
-```
-
----
-
-## Set Module Type
-
-Add this in `package.json`
-
-```json
-"type": "module"
-```
-
----
-
-## Update tsconfig.json
-
-Comment this line:
-
-```json
-// "jsx": "react-jsx",
-```
-
-Add these lines:
-
-```json
-"include": ["src/**/*"],
-"exclude": []
-```
-
----
-
-## Create src Folder
-
-```bash
-src/
-```
-
----
-
-## Install Express
-
-```bash
-npm i express
-```
-
----
-
-## Install Express Types
-
-```bash
-npm i --save-dev @types/express
-```
-
----
-
-## Install TSX
-
-```bash
-npm i -D tsx
-```
-
----
-
-## Add Dev Script
-
-Add this inside `package.json`
-
-```json
-"scripts": {
-  "dev": "tsx watch src/server.ts"
-}
-```
-
----
-
-## Run Development Server
+Run the development server
 
 ```bash
 npm run dev
 ```
 
----
-
-# Ready For Build & Deployment
-
-## Update Scripts
-
-Replace scripts with:
-
-```json
-"scripts": {
-  "start": "node dist/server.js",
-  "dev": "tsx watch ./src/server.ts",
-  "build": "tsup"
-}
-```
-
----
-
-## Install TSUP
-
-```bash
-npm i tsup
-```
-
----
-
-## Create tsup.config.ts
-
-Create `tsup.config.ts` in project root
-
-```ts
-import { defineConfig } from "tsup";
-
-export default defineConfig({
-  entry: ["src/server.ts"],
-
-  format: ["esm", "cjs"],
-
-  target: "esnext",
-
-  outDir: "dist",
-
-  clean: true,
-
-  bundle: true,
-
-  splitting: false,
-
-  sourcemap: true,
-
-  banner: {
-    js: `
-      import { createRequire } from 'module';
-      const require = createRequire(import.meta.url);
-    `,
-  },
-});
-```
-
----
-
-## Build Project
+Build the project
 
 ```bash
 npm run build
 ```
 
----
-
-## Run Production Server
+Start the production server
 
 ```bash
 npm start
@@ -178,30 +199,161 @@ npm start
 
 ---
 
-# Example server.ts
+## Database Schema
 
-```ts
-import express, { Request, Response } from "express";
+### Users Table
 
-const app = express();
+| Column Name | Data Type |
+|------------|-----------|
+| id | SERIAL |
+| name | VARCHAR |
+| email | VARCHAR |
+| password | VARCHAR |
+| role | VARCHAR |
+| created_at | TIMESTAMP |
+| updated_at | TIMESTAMP |
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Server is running");
-});
+### Issues Table
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
+| Column Name | Data Type |
+|------------|-----------|
+| id | SERIAL |
+| title | VARCHAR |
+| description | TEXT |
+| type | VARCHAR |
+| status | VARCHAR |
+| reporter_id | INTEGER |
+| created_at | TIMESTAMP |
+| updated_at | TIMESTAMP |
+
+---
+
+## Database Relationship
+
+- One user can create multiple issues.
+- reporter_id references the users table.
+- Each issue belongs to a single user.
+
+---
+
+## API Endpoints
+
+### Authentication APIs
+
+#### Register User
+
+```http
+POST /api/auth/signup
+```
+
+#### Login User
+
+```http
+POST /api/auth/login
+```
+
+### Issue APIs
+
+#### Create Issue
+
+```http
+POST /api/issues
+```
+
+#### Get All Issues
+
+```http
+GET /api/issues
+```
+
+#### Get Single Issue
+
+```http
+GET /api/issues/:id
+```
+
+#### Update Issue
+
+```http
+PATCH /api/issues/:id
+```
+
+#### Delete Issue
+
+```http
+DELETE /api/issues/:id
 ```
 
 ---
 
-# .gitignore
+## Query Parameters
 
-Create `.gitignore`
+### Sorting
 
-```gitignore
-node_modules
-dist
-.env
+```http
+/api/issues?sort=newest
+/api/issues?sort=oldest
 ```
+
+### Filter By Type
+
+```http
+/api/issues?type=bug
+/api/issues?type=feature_request
+```
+
+### Filter By Status
+
+```http
+/api/issues?status=open
+/api/issues?status=in_progress
+/api/issues?status=resolved
+```
+
+---
+
+## Response Format
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "message": "Operation successful",
+  "data": {}
+}
+```
+
+### Error Response
+
+```json
+{
+  "success": false,
+  "message": "Error description",
+  "errors": {}
+}
+```
+
+---
+
+## Environment Variables
+
+```env
+PORT=5000
+DATABASE_URL=your_neon_database_url
+JWT_SECRET=your_jwt_secret
+```
+
+---
+
+## Author
+
+**Chinmoy Sarkar**
+
+GitHub: https://github.com/chinmoy567
+
+---
+
+## License
+
+This project was developed for Programming Hero Assignment 2.
