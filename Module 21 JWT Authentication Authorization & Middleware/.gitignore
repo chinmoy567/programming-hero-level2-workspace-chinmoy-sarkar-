@@ -1,0 +1,11 @@
+node_modules
+dist
+build
+generated
+.env
+/generated/prisma
+
+# AI tools
+.claude/
+.agents/
+.windsurf/
