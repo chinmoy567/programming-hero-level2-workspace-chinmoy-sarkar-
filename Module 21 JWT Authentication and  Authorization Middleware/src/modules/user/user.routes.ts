@@ -6,4 +6,4 @@ import {userController } from './user.controller';
 //user registration route
 router.post("/register",userController.registerUser)
 
-export const userRouter = router;   
+export const userRoutes = router;   
