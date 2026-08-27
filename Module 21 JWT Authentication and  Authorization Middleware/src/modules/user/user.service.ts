@@ -16,7 +16,7 @@ const registerUserIntoDB = async (payload: registerUserPayload) => {
   if (isUserExists) {
     throw new Error("User already exists");
   }
-  
+
   //hash the password
   const hashedPassword = await bcrypt.hash(
     password,
@@ -29,23 +29,14 @@ const registerUserIntoDB = async (payload: registerUserPayload) => {
       name,
       email,
       password: hashedPassword,
-      profile : {
+      profile: {
         create: {
           profilephoto,
         },
-      },  
+      },
     },
   });
-
-  // //create profile
-  // const profile = await prisma.profile.create({
-  //   data: {
-  //     userId: createduser.id,
-  //     profilephoto,
-  //   },
-  // });
-
-  //find user
+  //fetch the user without password and with profile
   const user = await prisma.user.findUnique({
     where: {
       id: createduser.id,
@@ -61,6 +52,23 @@ const registerUserIntoDB = async (payload: registerUserPayload) => {
   return user;
 };
 
+//get my profile service
+const getMyProfileFromDB = async (userId: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    omit: {
+      password: true,
+    },
+    include: {
+      profile: true,
+    },
+  });
+  return user;
+};
+
 export const userService = {
   registerUserIntoDB,
+  getMyProfileFromDB,
 };
