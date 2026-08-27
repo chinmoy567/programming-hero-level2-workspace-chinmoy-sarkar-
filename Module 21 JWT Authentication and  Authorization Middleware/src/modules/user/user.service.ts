@@ -54,7 +54,7 @@ const registerUserIntoDB = async (payload: registerUserPayload) => {
 
 //get my profile service
 const getMyProfileFromDB = async (userId: string) => {
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findUniqueOrThrow({
     where: {
       id: userId,
     },
